@@ -12,15 +12,17 @@ Y=dataset["Outcome"]
 
 X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2,random_state=42)
 
-model=LogisticRegression()
+model=LogisticRegression(max_iter=1000)
 model.fit(X_train,Y_train)
 
 predictions=model.predict(X_test)
 accuracy=accuracy_score(Y_test,predictions)
 print(accuracy)
 
-prediction1=model.predict([[1, 95, 70, 20, 85, 24.5, 0.2, 22]])
-if prediction1:
+input_data = pd.DataFrame([[1, 95, 70, 20, 85, 24.5, 0.2, 22]],columns=X.columns)
+
+prediction1 = model.predict(input_data)
+if prediction1[0]==1:
     print("Diabetes Present")
 else:
     print("Not Present")
